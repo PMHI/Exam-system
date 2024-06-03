@@ -10,7 +10,7 @@ public class Role {
 
     @Id
     @Column(name = "roleid", nullable = false)
-    @GeneratedValue(strategy =GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getRoleid() {
         return roleid;
     }

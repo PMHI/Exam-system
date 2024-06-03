@@ -10,7 +10,7 @@ public class Pjclass {
 
     @Id
     @Column(name = "classid", nullable = false)
-    @GeneratedValue(strategy =GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getClassid() {
         return classid;
     }
@@ -34,8 +34,7 @@ public class Pjclass {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Pjclass pjclass = (Pjclass) o;
-        return classid == pjclass.classid &&
-                Objects.equals(classname, pjclass.classname);
+        return classid == pjclass.classid && Objects.equals(classname, pjclass.classname);
     }
 
     @Override

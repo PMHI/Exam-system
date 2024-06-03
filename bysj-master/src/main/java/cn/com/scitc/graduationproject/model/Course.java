@@ -10,7 +10,7 @@ public class Course {
 
     @Id
     @Column(name = "cno", nullable = false)
-    @GeneratedValue(strategy =GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getCno() {
         return cno;
     }
@@ -34,8 +34,7 @@ public class Course {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Course course = (Course) o;
-        return cno == course.cno &&
-                Objects.equals(cname, course.cname);
+        return cno == course.cno && Objects.equals(cname, course.cname);
     }
 
     @Override

@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>注册</title>
-    <link rel="stylesheet" href="css/reset.css" />
-    <link rel="stylesheet" href="css/common.css" />
-    <link rel="stylesheet" href="css/font-awesome.min.css" />
+    <link rel="stylesheet" href="css/reset.css"/>
+    <link rel="stylesheet" href="css/common.css"/>
+    <link rel="stylesheet" href="css/font-awesome.min.css"/>
     <style>
-        .lb{
+        .lb {
             height: 100%;
             width: 100%;
-            border-width:0px;
+            border-width: 0px;
             border-top-style: none;
             border-right-style: none;
             border-left-style: none;
@@ -46,31 +46,42 @@
                     </div>
                     <div class="ececk_warning"><span>真实姓名不能为空</span></div>
                     <div class="form_text_ipt">
-                       <select name="classid" class="lb">
-                           <option name="classid" th:each="pjclass : ${list}" th:value="${pjclass.classid}" th:text="${pjclass.classname}"></option>
-                       </select>
+                        <select name="classid" class="lb">
+                            <option name="classid" th:each="pjclass : ${list}" th:value="${pjclass.classid}"
+                                    th:text="${pjclass.classname}"></option>
+                        </select>
                     </div>
                     <div class="ececk_warning"><span>班级不能为空</span></div>
-                    <div id="nogg" style="text-align: center"><span style="color: red;text-align: center" id="sb" th:text="${session.cg}" />
-                        <span style="color: red;text-align: center" id="sb1" th:text="${session.cz}" />
-                        <span style="color: red;text-align: center" id="sb2" th:text="${session.wk}" />
+                    <div id="nogg" style="text-align: center"><span style="color: red;text-align: center" id="sb"
+                                                                    th:text="${session.cg}"/>
+                        <span style="color: red;text-align: center" id="sb1" th:text="${session.cz}"/>
+                        <span style="color: red;text-align: center" id="sb2" th:text="${session.wk}"/>
                     </div>
 
-                    <script >
-                        window.onload = function(){
+                    <script>
+                        window.onload = function () {
                             //要执行的js代码
                             var sb = document.getElementById("sb").innerText;
-                            if(sb!=""){
-                                setTimeout(function(){document.getElementById("nogg").style.display="none";location.replace("./logout")},1000);
+                            if (sb != "") {
+                                setTimeout(function () {
+                                    document.getElementById("nogg").style.display = "none";
+                                    location.replace("./logout")
+                                }, 1000);
                             }
                         }
                         var sb1 = document.getElementById("sb1").innerText;
-                        if(sb1!=""){
-                            setTimeout(function(){document.getElementById("nogg").style.display="none";location.replace("./zclogout")},9000);
+                        if (sb1 != "") {
+                            setTimeout(function () {
+                                document.getElementById("nogg").style.display = "none";
+                                location.replace("./zclogout")
+                            }, 9000);
                         }
                         var sb2 = document.getElementById("sb2").innerText;
-                        if(sb2!=""){
-                            setTimeout(function(){document.getElementById("nogg").style.display="none";location.replace("./zclogout")},1000);
+                        if (sb2 != "") {
+                            setTimeout(function () {
+                                document.getElementById("nogg").style.display = "none";
+                                location.replace("./zclogout")
+                            }, 1000);
                         }
                     </script>
                     <div class="form_btn">
@@ -90,13 +101,13 @@
                             <a href="#"><i class="fa fa-weixin fa-2x"></i></a>
                             <a href="#"><i class="fa fa-weibo fa-2x"></i></a>
                         </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<script type="text/javascript" src="js/jquery.min.js" ></script>
-<script type="text/javascript" src="js/common.js" ></script>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/common.js"></script>
 </body>
 </body>
 </html>

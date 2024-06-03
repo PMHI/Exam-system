@@ -16,10 +16,12 @@ public class Subject {
     private String skey;
     @Transient
     private Course course;
+
     @Transient
     public Course getCourse() {
         return course;
     }
+
     @Transient
     public void setCourse(Course course) {
         this.course = course;
@@ -27,7 +29,7 @@ public class Subject {
 
     @Id
     @Column(name = "sid", nullable = false)
-    @GeneratedValue(strategy =GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getSid() {
         return sid;
     }
@@ -121,15 +123,7 @@ public class Subject {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Subject subject = (Subject) o;
-        return sid == subject.sid &&
-                cno == subject.cno &&
-                stype == subject.stype &&
-                Objects.equals(scontent, subject.scontent) &&
-                Objects.equals(sa, subject.sa) &&
-                Objects.equals(sb, subject.sb) &&
-                Objects.equals(sc, subject.sc) &&
-                Objects.equals(sd, subject.sd) &&
-                Objects.equals(skey, subject.skey);
+        return sid == subject.sid && cno == subject.cno && stype == subject.stype && Objects.equals(scontent, subject.scontent) && Objects.equals(sa, subject.sa) && Objects.equals(sb, subject.sb) && Objects.equals(sc, subject.sc) && Objects.equals(sd, subject.sd) && Objects.equals(skey, subject.skey);
     }
 
     @Override

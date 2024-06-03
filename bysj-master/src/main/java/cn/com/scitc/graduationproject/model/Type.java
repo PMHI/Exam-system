@@ -10,7 +10,7 @@ public class Type {
 
     @Id
     @Column(name = "stype", nullable = false)
-    @GeneratedValue(strategy =GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getStype() {
         return stype;
     }
@@ -34,8 +34,7 @@ public class Type {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Type type = (Type) o;
-        return stype == type.stype &&
-                Objects.equals(name, type.name);
+        return stype == type.stype && Objects.equals(name, type.name);
     }
 
     @Override

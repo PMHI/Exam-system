@@ -13,10 +13,12 @@ public class Studentsubject {
     private String studentkey;
     @Transient
     private Subject subject;
+
     @Transient
     public Subject getSubject() {
         return subject;
     }
+
     @Transient
     public void setSubject(Subject subject) {
         this.subject = subject;
@@ -24,7 +26,7 @@ public class Studentsubject {
 
     @Id
     @Column(name = "ssid", nullable = false)
-    @GeneratedValue(strategy =GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getSsid() {
         return ssid;
     }
@@ -88,12 +90,7 @@ public class Studentsubject {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Studentsubject that = (Studentsubject) o;
-        return ssid == that.ssid &&
-                seid == that.seid &&
-                userid == that.userid &&
-                eid == that.eid &&
-                sid == that.sid &&
-                Objects.equals(studentkey, that.studentkey);
+        return ssid == that.ssid && seid == that.seid && userid == that.userid && eid == that.eid && sid == that.sid && Objects.equals(studentkey, that.studentkey);
     }
 
     @Override

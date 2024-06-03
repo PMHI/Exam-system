@@ -78,15 +78,6 @@ public class StudentScore {
 
     @Override
     public String toString() {
-        return "StudentScore{" +
-                "seid=" + seid +
-                ", userid=" + userid +
-                ", username=" + username +
-                ", truename='" + truename + '\'' +
-                ", pname='" + pname + '\'' +
-                ", zscore=" + zscore +
-                ", score=" + score +
-                ", tjtime=" + tjtime +
-                '}';
+        return "StudentScore{" + "seid=" + seid + ", userid=" + userid + ", username=" + username + ", truename='" + truename + '\'' + ", pname='" + pname + '\'' + ", zscore=" + zscore + ", score=" + score + ", tjtime=" + tjtime + '}';
     }
 }

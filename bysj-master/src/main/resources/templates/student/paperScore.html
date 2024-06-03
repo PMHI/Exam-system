@@ -10,20 +10,21 @@
 
 <div class="container">
     <div class="jumbotron">
-        <h4 style="text-align: center">本次考试以提交，成绩为<font color="red" th:text="${score}"></font>分</h4>
+        <h4 style="text-align: center">本次考试已提交，成绩为<font color="red" th:text="${score}"></font>分</h4>
     </div>
 </div>
 <script type="text/javascript">
-    onload=function(){
+    onload = function () {
         setInterval(go, 1000);
     };
-    var x=3;
-    function go(){
+    var x = 3;
+
+    function go() {
         x--;
-        if(x>0){
-            document.getElementById("sp").innerHTML=x;
-        }else{
-            location.href='./findAllStuPaper';
+        if (x > 0) {
+            document.getElementById("sp").innerHTML = x;
+        } else {
+            location.href = './findAllStuPaper';
         }
     }
 </script>

@@ -17,6 +17,7 @@ public class Studentexam {
     //连表
     @Transient
     private Users users;
+
     @Transient
     public Users getUsers() {
         return users;
@@ -29,7 +30,7 @@ public class Studentexam {
 
     @Id
     @Column(name = "seid", nullable = false)
-    @GeneratedValue(strategy =GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getSeid() {
         return seid;
     }
@@ -113,14 +114,7 @@ public class Studentexam {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Studentexam that = (Studentexam) o;
-        return seid == that.seid &&
-                userid == that.userid &&
-                classid == that.classid &&
-                eid == that.eid &&
-                zscore == that.zscore &&
-                score == that.score &&
-                Objects.equals(pname, that.pname) &&
-                Objects.equals(tjtime, that.tjtime);
+        return seid == that.seid && userid == that.userid && classid == that.classid && eid == that.eid && zscore == that.zscore && score == that.score && Objects.equals(pname, that.pname) && Objects.equals(tjtime, that.tjtime);
     }
 
     @Override

@@ -7,6 +7,7 @@ import java.util.Objects;
 public class Paper {
     private int pid;
     private int eid;
+
     private int sid;
     private int cno;
     private int stype;
@@ -19,7 +20,7 @@ public class Paper {
 
     @Id
     @Column(name = "pid", nullable = false)
-    @GeneratedValue(strategy =GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getPid() {
         return pid;
     }
@@ -57,6 +58,7 @@ public class Paper {
     public void setCno(int cno) {
         this.cno = cno;
     }
+
 
     @Basic
     @Column(name = "stype", nullable = false)
@@ -130,20 +132,14 @@ public class Paper {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Paper paper = (Paper) o;
-        return pid == paper.pid &&
-                eid == paper.eid &&
-                sid == paper.sid &&
-                cno == paper.cno &&
-                stype == paper.stype &&
-                Objects.equals(scontent, paper.scontent) &&
-                Objects.equals(sa, paper.sa) &&
-                Objects.equals(sb, paper.sb) &&
-                Objects.equals(sc, paper.sc) &&
-                Objects.equals(sd, paper.sd) &&
-                Objects.equals(skey, paper.skey);
+        return pid == paper.pid && eid == paper.eid && sid == paper.sid && cno == paper.cno && stype == paper.stype && Objects.equals(scontent, paper.scontent) && Objects.equals(sa, paper.sa) && Objects.equals(sb, paper.sb) && Objects.equals(sc, paper.sc) && Objects.equals(sd, paper.sd) && Objects.equals(skey, paper.skey);
     }
 
     @Override

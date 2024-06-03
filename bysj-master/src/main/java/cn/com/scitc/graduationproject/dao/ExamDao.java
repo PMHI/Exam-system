@@ -10,32 +10,32 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public interface ExamDao extends JpaRepository<Exam,Integer> {
+public interface ExamDao extends JpaRepository<Exam, Integer> {
 
-    @Query(value ="select * from exam where classid=?", nativeQuery = true)
+    @Query(value = "select * from exam where classid=?", nativeQuery = true)
     List<Exam> finbyclassid(Integer classid);
 
-    @Query(value = "select * from exam where eid=?",nativeQuery = true)
+    @Query(value = "select * from exam where eid=?", nativeQuery = true)
     Exam findByEid(Integer eid);
 
-    @Query(value = "select * from exam where pname=?",nativeQuery = true)
+    @Query(value = "select * from exam where pname=?", nativeQuery = true)
     Exam findByPname(String pname);
 
-    @Query(value ="select * from exam ", nativeQuery = true)
+    @Query(value = "select * from exam ", nativeQuery = true)
     Page<Exam> findAll(Pageable pageable);
 
     @Modifying
     @Transactional
-    @Query(value="delete from exam where eid = ?",nativeQuery = true)
+    @Query(value = "delete from exam where eid = ?", nativeQuery = true)
     void deleteByEid(Integer eid);
 
     @Modifying
     @Transactional
-    @Query(value="delete from exam where classid = ?",nativeQuery = true)
+    @Query(value = "delete from exam where classid = ?", nativeQuery = true)
     void deleteByClassid(Integer classid);
 
     @Modifying
     @Transactional
-    @Query(value="delete from exam where cno = ?",nativeQuery = true)
+    @Query(value = "delete from exam where cno = ?", nativeQuery = true)
     void deleteByCno(Integer cno);
 }

@@ -21,10 +21,12 @@ public class Exam {
 
     @Transient
     private Course course;
+
     @Transient
     public Course getCourse() {
         return course;
     }
+
     @Transient
     public void setCourse(Course course) {
         this.course = course;
@@ -32,7 +34,7 @@ public class Exam {
 
     @Id
     @Column(name = "eid", nullable = false)
-    @GeneratedValue(strategy =GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getEid() {
         return eid;
     }
@@ -156,18 +158,7 @@ public class Exam {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Exam exam = (Exam) o;
-        return eid == exam.eid &&
-                cno == exam.cno &&
-                userid == exam.userid &&
-                classid == exam.classid &&
-                singlenumber == exam.singlenumber &&
-                singlecore == exam.singlecore &&
-                multiplenumber == exam.multiplenumber &&
-                multiplecore == exam.multiplecore &&
-                testtime == exam.testtime &&
-                Objects.equals(pname, exam.pname) &&
-                Objects.equals(examdate, exam.examdate) &&
-                Objects.equals(examtime, exam.examtime);
+        return eid == exam.eid && cno == exam.cno && userid == exam.userid && classid == exam.classid && singlenumber == exam.singlenumber && singlecore == exam.singlecore && multiplenumber == exam.multiplenumber && multiplecore == exam.multiplecore && testtime == exam.testtime && Objects.equals(pname, exam.pname) && Objects.equals(examdate, exam.examdate) && Objects.equals(examtime, exam.examtime);
     }
 
     @Override

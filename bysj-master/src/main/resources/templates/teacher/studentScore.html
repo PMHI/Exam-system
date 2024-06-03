@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -8,10 +8,12 @@
 <body>
 <div th:replace="include/TeacherNav :: TeacherNav"></div>
 <div class="table-responsive" style="margin-left: 18%">
-    <table class="table table-striped"  >
+    <table class="table table-striped">
         <thead>
         <tr>
-            <th colspan="5" style="text-align:left ;font-size: 20px"><button class="line btn btn-primary btn-sm"><span th:text="${cs.classname}"></span></button>&nbsp;&nbsp;&nbsp;</th>
+            <th colspan="5" style="text-align:left ;font-size: 20px">
+                <button class="line btn btn-primary btn-sm"><span th:text="${cs.classname}"></span></button>&nbsp;&nbsp;&nbsp;
+            </th>
         </tr>
         <tr>
             <th>编号</th>

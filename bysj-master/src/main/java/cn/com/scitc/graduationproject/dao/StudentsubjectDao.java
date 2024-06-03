@@ -8,12 +8,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public interface StudentsubjectDao extends CrudRepository<Studentsubject,Integer> {
-    @Query(value ="select * from studentsubject where userid=? and seid=?", nativeQuery = true)
-    List<Studentsubject> findBySeid (Integer userid, Integer seid);
+public interface StudentsubjectDao extends CrudRepository<Studentsubject, Integer> {
+    @Query(value = "select * from studentsubject where userid=? and seid=?", nativeQuery = true)
+    List<Studentsubject> findBySeid(Integer userid, Integer seid);
 
     @Modifying
     @Transactional
-    @Query(value="delete from studentsubject where eid = ?",nativeQuery = true)
+    @Query(value = "delete from studentsubject where eid = ?", nativeQuery = true)
     void deleteByEid(Integer eid);
 }

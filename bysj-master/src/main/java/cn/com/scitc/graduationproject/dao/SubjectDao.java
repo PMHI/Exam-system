@@ -13,20 +13,21 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Repository
-public interface SubjectDao  extends JpaRepository<Subject,Integer> {
-   //查询单选题
-    @Query(value ="select * from subject where stype =?", nativeQuery = true)
+public interface SubjectDao extends JpaRepository<Subject, Integer> {
+    //查询单选题
+    @Query(value = "select * from subject where stype =?", nativeQuery = true)
     Page<Subject> findByStype(@Param("stype") Integer stype, Pageable pageable);
 
-    @Query(value ="select * from subject where sid =?", nativeQuery = true)
-    Subject findBySid (Integer sid);
-    @Query(value ="select * from subject where stype =? and cno=?", nativeQuery = true)
+    @Query(value = "select * from subject where sid =?", nativeQuery = true)
+    Subject findBySid(Integer sid);
+
+    @Query(value = "select * from subject where stype =? and cno=?", nativeQuery = true)
     List<Subject> finbytype(Integer stype, Integer cno);
 
     @Modifying
     @Transactional
-    @Query(value="delete from subject where cno = ?",nativeQuery = true)
-     void deleteByCno(Integer cno);
+    @Query(value = "delete from subject where cno = ?", nativeQuery = true)
+    void deleteByCno(Integer cno);
 
 }
 

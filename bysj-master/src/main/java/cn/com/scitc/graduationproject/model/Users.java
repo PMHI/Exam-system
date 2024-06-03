@@ -1,7 +1,6 @@
 package cn.com.scitc.graduationproject.model;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -15,7 +14,7 @@ public class Users {
 
     @Id
     @Column(name = "userid", nullable = false)
-    @GeneratedValue(strategy =GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getUserid() {
         return userid;
     }
@@ -79,12 +78,7 @@ public class Users {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Users users = (Users) o;
-        return userid == users.userid &&
-                Objects.equals(roleid, users.roleid) &&
-                Objects.equals(username, users.username) &&
-                Objects.equals(userpwd, users.userpwd) &&
-                Objects.equals(truename, users.truename) &&
-                Objects.equals(classid, users.classid);
+        return userid == users.userid && Objects.equals(roleid, users.roleid) && Objects.equals(username, users.username) && Objects.equals(userpwd, users.userpwd) && Objects.equals(truename, users.truename) && Objects.equals(classid, users.classid);
     }
 
     @Override

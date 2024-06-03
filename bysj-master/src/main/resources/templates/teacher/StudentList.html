@@ -1,6 +1,5 @@
-
 <!DOCTYPE html>
-<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -9,53 +8,57 @@
 <body>
 <div th:replace="include/TeacherNav :: TeacherNav"></div>
 <script type="text/javascript">
-    $(function(){
+    $(function () {
         //实现全选与反选 var ids=[];
-        $("#allAndNotAll").click(function() {
-            if (this.checked){
-                $("input[name='items']:checkbox").each(function(){
+        $("#allAndNotAll").click(function () {
+            if (this.checked) {
+                $("input[name='items']:checkbox").each(function () {
                     $(this).attr("checked", true);
                 });
             } else {
-                $("input[name='items']:checkbox").each(function() {
+                $("input[name='items']:checkbox").each(function () {
                     $(this).attr("checked", false);
                 });
             }
         });
         //获取被选中的id
 
-        $('#getAllSelectedId').click(function(){
-            var ids=new Array();
-            $("input[name='items']:checked").each(function(){
+        $('#getAllSelectedId').click(function () {
+            var ids = new Array();
+            $("input[name='items']:checked").each(function () {
                 ids.push($(this).attr("id"));
             });
-           // var chk_value=ids.join(",");
-            if(ids==""){
+            // var chk_value=ids.join(",");
+            if (ids == "") {
                 alert("请选择删除的数据！")
-            }else {
-                location.href = "deleteManyStu?ids="+ids;
+            } else {
+                location.href = "deleteManyStu?ids=" + ids;
             }
 
         });
     });
+
     function deleteAll() {
-        if(confirm('数据将删除，是否继续?')){
-            window.location  = "/deleteAll";
+        if (confirm('数据将删除，是否继续?')) {
+            window.location = "/deleteAll";
         }
 
     }
 </script>
 <div class="table-responsive" style="margin-left: 18%">
-    <table class="table table-striped"  >
+    <table class="table table-striped">
         <thead>
         <tr>
-            <th colspan="7"><button class="line btn btn-primary btn-sm" type="button" onclick="add()">添加学生</button>
-                &nbsp;&nbsp;&nbsp; <button class="line btn btn-primary btn-sm" id="getAllSelectedId" >批量删除</button>
-            &nbsp;&nbsp;&nbsp; <button class="line btn btn-primary btn-sm" id="deleteAll" onclick="deleteAll()" >删除所有数据</button>
-                &nbsp;&nbsp;&nbsp;我的班级：  <span th:text="${pj.classname}"></span></th>
+            <th colspan="7">
+                <button class="line btn btn-primary btn-sm" type="button" onclick="add()">添加学生</button>
+                &nbsp;&nbsp;&nbsp;
+                <button class="line btn btn-primary btn-sm" id="getAllSelectedId">批量删除</button>
+                &nbsp;&nbsp;&nbsp;
+                <button class="line btn btn-primary btn-sm" id="deleteAll" onclick="deleteAll()">删除所有数据</button>
+                &nbsp;&nbsp;&nbsp;我的班级： <span th:text="${pj.classname}"></span></th>
         </tr>
         <tr>
-            <td ><input type="checkbox" id="allAndNotAll" />全选/反选</td>
+            <td><input type="checkbox" id="allAndNotAll"/>全选/反选</td>
             <th>编号</th>
             <th>学号</th>
             <th>密码</th>
@@ -86,15 +89,21 @@
 </div>
 <div class="row" style="margin-left: 18%">
     <!--分页文字信息  -->
-    <div class="col-md-6">当前 <span th:text="${pageInfo.getNumber()} + 1"></span>页,总<span th:text="${pageInfo.totalPages}"></span>
-        页,总 <span th:text="${pageInfo.totalElements}"></span> 位学生</div>
+    <div class="col-md-6">当前 <span th:text="${pageInfo.getNumber()} + 1"></span>页,总<span
+            th:text="${pageInfo.totalPages}"></span>
+        页,总 <span th:text="${pageInfo.totalElements}"></span> 位学生
+    </div>
     <!-- 分页条信息 -->
     <div class="col-md-6">
         <nav aria-label="Page navigation">
             <ul class="pagination">
                 <li><a th:href="@{/StudentList}">首页</a></li>
-                <li><a th:href="@{/StudentList(pageNum = ${pageInfo.hasPrevious()} ? ${pageInfo.getNumber() } : 1)}">上一页</a></li>
-                <li><a th:href="@{/StudentList(pageNum = ${pageInfo.hasNext()} ? ${pageInfo.getNumber()} + 2 : ${pageInfo.totalPages})}">下一页</a></li>
+                <li>
+                    <a th:href="@{/StudentList(pageNum = ${pageInfo.hasPrevious()} ? ${pageInfo.getNumber() } : 1)}">上一页</a>
+                </li>
+                <li>
+                    <a th:href="@{/StudentList(pageNum = ${pageInfo.hasNext()} ? ${pageInfo.getNumber()} + 2 : ${pageInfo.totalPages})}">下一页</a>
+                </li>
                 <li><a th:href="@{/StudentList(pageNum = ${pageInfo.totalPages})}">末页</a></li>
             </ul>
         </nav>
@@ -114,39 +123,40 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">学号</label>
                         <div class="col-sm-10">
-                        <input type="text" name="username" class="form-control" id="username"
-                        placeholder="">
-                        <span class="help-block"></span>
+                            <input type="text" name="username" class="form-control" id="username"
+                                   placeholder="">
+                            <span class="help-block"></span>
                         </div>
-                        </div>
-                        <div class="form-group ">
+                    </div>
+                    <div class="form-group ">
                         <label class="col-sm-2 control-label">姓名</label>
                         <div class="col-sm-10">
-                        <input type="text" name="truename" class="form-control" id="truename"
-                        placeholder="">
-                        <span class="help-block"></span>
+                            <input type="text" name="truename" class="form-control" id="truename"
+                                   placeholder="">
+                            <span class="help-block"></span>
                         </div>
-                        </div>
-                        <div class="form-group ">
+                    </div>
+                    <div class="form-group ">
                         <label class="col-sm-2 control-label">密码</label>
                         <div class="col-sm-10">
-                        <input type="text" name="userpwd" class="form-control" id="userpwd"
-                        placeholder="">
-                        <span class="help-block"></span>
+                            <input type="text" name="userpwd" class="form-control" id="userpwd"
+                                   placeholder="">
+                            <span class="help-block"></span>
                         </div>
-                        </div>
-                        <div class="form-group">
+                    </div>
+                    <div class="form-group">
                         <label class="col-sm-2 control-label">班级</label>
                         <div class="col-sm-5">
-                        <select name="classid" >
-                        <option name="classid" th:each="pjclass : ${list}" th:value="${pjclass.classid}" th:text="${pjclass.classname}"></option>
-                        </select>
+                            <select name="classid">
+                                <option name="classid" th:each="pjclass : ${list}" th:value="${pjclass.classid}"
+                                        th:text="${pjclass.classname}"></option>
+                            </select>
                         </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                    <button type="submit" class="btn btn-primary" id="addbut">提交</button>
-                </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="submit" class="btn btn-primary" id="addbut">提交</button>
+                    </div>
                 </div>
             </form>
         </div>
@@ -155,57 +165,57 @@
     <!-- /.modal-dialog -->
 </div>
 <!--<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">-->
-    <!--<div class="modal-dialog" role="document">-->
-        <!--<div class="modal-content">-->
-            <!--<div class="modal-header">-->
-                <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span-->
-                        <!--aria-hidden="true">&times;</span></button>-->
-            <!--<h4 class="modal-title" id="myModalLabel">添加</h4>-->
-        <!--</div>-->
-        <!--<div class="modal-body">-->
-            <!--<form id="addform"  th:action="@{/addStu}" method="post">-->
-                <!--<div class="modal-body">-->
-                    <!--<div class="form-group">-->
-                        <!--<label class="col-sm-2 control-label">学号</label>-->
-                        <!--<div class="col-sm-10">-->
-                            <!--<input type="text" name="username" class="form-control" id="username"-->
-                                   <!--placeholder="">-->
-                            <!--<span class="help-block"></span>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                    <!--<div class="form-group ">-->
-                        <!--<label class="col-sm-2 control-label">姓名</label>-->
-                        <!--<div class="col-sm-10">-->
-                            <!--<input type="text" name="truename" class="form-control" id="truename"-->
-                                   <!--placeholder="">-->
-                            <!--<span class="help-block"></span>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                    <!--<div class="form-group ">-->
-                        <!--<label class="col-sm-2 control-label">密码</label>-->
-                        <!--<div class="col-sm-10">-->
-                            <!--<input type="text" name="userpwd" class="form-control" id="userpwd"-->
-                                   <!--placeholder="">-->
-                            <!--<span class="help-block"></span>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--<div class="form-group">-->
-                    <!--<label class="col-sm-2 control-label">班级</label>-->
-                    <!--<div class="col-sm-5">-->
-                    <!--<select name="classid" >-->
-                        <!--<option name="classid" th:each="pjclass : ${list}" th:value="${pjclass.classid}" th:text="${pjclass.classname}"></option>-->
-                    <!--</select>-->
-                    <!--</div>-->
-                <!--</div>-->
-                <!--<div class="text-right">-->
-                    <!--<span id="returnMessage" class="glyphicon"> </span>-->
-                    <!--<button type="button" class="btn btn-default right" data-dismiss="modal">关闭</button>-->
-                    <!--<button id="submitBtn" type="button" class="btn btn-primary" >保存</button>-->
-                <!--</div>-->
-                <!--</div>-->
-            <!--</form>-->
-        <!--</div>-->
-    <!--</div>-->
+<!--<div class="modal-dialog" role="document">-->
+<!--<div class="modal-content">-->
+<!--<div class="modal-header">-->
+<!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span-->
+<!--aria-hidden="true">&times;</span></button>-->
+<!--<h4 class="modal-title" id="myModalLabel">添加</h4>-->
+<!--</div>-->
+<!--<div class="modal-body">-->
+<!--<form id="addform"  th:action="@{/addStu}" method="post">-->
+<!--<div class="modal-body">-->
+<!--<div class="form-group">-->
+<!--<label class="col-sm-2 control-label">学号</label>-->
+<!--<div class="col-sm-10">-->
+<!--<input type="text" name="username" class="form-control" id="username"-->
+<!--placeholder="">-->
+<!--<span class="help-block"></span>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="form-group ">-->
+<!--<label class="col-sm-2 control-label">姓名</label>-->
+<!--<div class="col-sm-10">-->
+<!--<input type="text" name="truename" class="form-control" id="truename"-->
+<!--placeholder="">-->
+<!--<span class="help-block"></span>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="form-group ">-->
+<!--<label class="col-sm-2 control-label">密码</label>-->
+<!--<div class="col-sm-10">-->
+<!--<input type="text" name="userpwd" class="form-control" id="userpwd"-->
+<!--placeholder="">-->
+<!--<span class="help-block"></span>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="form-group">-->
+<!--<label class="col-sm-2 control-label">班级</label>-->
+<!--<div class="col-sm-5">-->
+<!--<select name="classid" >-->
+<!--<option name="classid" th:each="pjclass : ${list}" th:value="${pjclass.classid}" th:text="${pjclass.classname}"></option>-->
+<!--</select>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="text-right">-->
+<!--<span id="returnMessage" class="glyphicon"> </span>-->
+<!--<button type="button" class="btn btn-default right" data-dismiss="modal">关闭</button>-->
+<!--<button id="submitBtn" type="button" class="btn btn-primary" >保存</button>-->
+<!--</div>-->
+<!--</div>-->
+<!--</form>-->
+<!--</div>-->
+<!--</div>-->
 <!--</div>-->
 <!--</div>-->
 <!--编辑模态框-->
@@ -222,40 +232,40 @@
                     <input name="userid" id="userid1" hidden="hidden"/>
                     <input name="roleid" id="roleid1" hidden="hidden"/>
                     <div class="form-group">
-                    <label class="col-sm-2 control-label">学号</label>
-                    <div class="col-sm-10">
-                    <input type="text" name="username" class="form-control" id="username1"/>
-                    <span class="help-block"></span>
-                    </div>
-                    </div>
-                    <div class="form-group ">
-                    <label class="col-sm-2 control-label">姓名</label>
-                    <div class="col-sm-10">
-                    <input type="text" name="truename" class="form-control" id="truename1"
-                    placeholder="">
-                    <span class="help-block"></span>
-                    </div>
+                        <label class="col-sm-2 control-label">学号</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="username" class="form-control" id="username1"/>
+                            <span class="help-block"></span>
+                        </div>
                     </div>
                     <div class="form-group ">
-                    <label class="col-sm-2 control-label">密码</label>
-                    <div class="col-sm-10">
-                    <input type="text" name="userpwd" class="form-control" id="userpwd1"
-                    placeholder="">
-                    <span class="help-block"></span>
+                        <label class="col-sm-2 control-label">姓名</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="truename" class="form-control" id="truename1"
+                                   placeholder="">
+                            <span class="help-block"></span>
+                        </div>
                     </div>
-                    <!--<script>-->
-                    <!--var p = document.getElementById("userpwd1").value;-->
-                    <!--if(p!=''){-->
-                    <!--console.log(p);-->
-                    <!--}-->
-                    <!--</script>-->
+                    <div class="form-group ">
+                        <label class="col-sm-2 control-label">密码</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="userpwd" class="form-control" id="userpwd1"
+                                   placeholder="">
+                            <span class="help-block"></span>
+                        </div>
+                        <!--<script>-->
+                        <!--var p = document.getElementById("userpwd1").value;-->
+                        <!--if(p!=''){-->
+                        <!--console.log(p);-->
+                        <!--}-->
+                        <!--</script>-->
                     </div>
                     <div class="form-group">
-                    <label class="col-sm-2 control-label">班级</label>
-                    <div class="col-sm-5">
-                    <select class="form-control" id="classid1" name="classid">
-                    </select>
-                    </div>
+                        <label class="col-sm-2 control-label">班级</label>
+                        <div class="col-sm-5">
+                            <select class="form-control" id="classid1" name="classid">
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -269,61 +279,61 @@
 
 <!--编辑模态框-->
 <!--<div class="modal fade" id="studit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">-->
-    <!--<div class="modal-dialog" role="document">-->
-        <!--<div class="modal-content">-->
-            <!--<div class="modal-header">-->
-                <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span-->
-                        <!--aria-hidden="true">&times;</span></button>-->
-                <!--<h4 class="modal-title" id="Label">编辑</h4>-->
-            <!--</div>-->
-            <!--<form class="form-horizontal" th:action="@{/updateStu}" method="post">-->
-                <!--<div class="modal-body">-->
-                    <!--<input name="userid" id="userid1" hidden="hidden"/>-->
-                    <!--<input name="roleid" id="roleid1" hidden="hidden"/>-->
-                    <!--<div class="form-group">-->
-                        <!--<label class="col-sm-2 control-label">学号</label>-->
-                        <!--<div class="col-sm-10">-->
-                            <!--<input type="text" name="username" class="form-control" id="username1"/>-->
-                            <!--<span class="help-block"></span>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                    <!--<div class="form-group ">-->
-                        <!--<label class="col-sm-2 control-label">姓名</label>-->
-                        <!--<div class="col-sm-10">-->
-                            <!--<input type="text" name="truename" class="form-control" id="truename1"-->
-                                   <!--placeholder="">-->
-                            <!--<span class="help-block"></span>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                    <!--<div class="form-group ">-->
-                        <!--<label class="col-sm-2 control-label">密码</label>-->
-                        <!--<div class="col-sm-10">-->
-                            <!--<input type="text" name="userpwd" class="form-control" id="userpwd1"-->
-                                   <!--placeholder="">-->
-                            <!--<span class="help-block"></span>-->
-                        <!--</div>-->
-                        <!--<script>-->
-                            <!--var p = document.getElementById("userpwd1").value;-->
-                            <!--if(p!=''){-->
-                                <!--console.log(p);-->
-                            <!--}-->
-                        <!--</script>-->
-                    <!--</div>-->
-                    <!--<div class="form-group">-->
-                        <!--<label class="col-sm-2 control-label">班级</label>-->
-                        <!--<div class="col-sm-5">-->
-                            <!--<select class="form-control" id="classid1" name="classid">-->
-                            <!--</select>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-                <!--<div class="modal-footer">-->
-                    <!--<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>-->
-                    <!--<button type="submit" class="btn btn-primary" id="tch_save_btn">保存</button>-->
-                <!--</div>-->
-            <!--</form>-->
-        <!--</div>-->
-    <!--</div>-->
+<!--<div class="modal-dialog" role="document">-->
+<!--<div class="modal-content">-->
+<!--<div class="modal-header">-->
+<!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span-->
+<!--aria-hidden="true">&times;</span></button>-->
+<!--<h4 class="modal-title" id="Label">编辑</h4>-->
+<!--</div>-->
+<!--<form class="form-horizontal" th:action="@{/updateStu}" method="post">-->
+<!--<div class="modal-body">-->
+<!--<input name="userid" id="userid1" hidden="hidden"/>-->
+<!--<input name="roleid" id="roleid1" hidden="hidden"/>-->
+<!--<div class="form-group">-->
+<!--<label class="col-sm-2 control-label">学号</label>-->
+<!--<div class="col-sm-10">-->
+<!--<input type="text" name="username" class="form-control" id="username1"/>-->
+<!--<span class="help-block"></span>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="form-group ">-->
+<!--<label class="col-sm-2 control-label">姓名</label>-->
+<!--<div class="col-sm-10">-->
+<!--<input type="text" name="truename" class="form-control" id="truename1"-->
+<!--placeholder="">-->
+<!--<span class="help-block"></span>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="form-group ">-->
+<!--<label class="col-sm-2 control-label">密码</label>-->
+<!--<div class="col-sm-10">-->
+<!--<input type="text" name="userpwd" class="form-control" id="userpwd1"-->
+<!--placeholder="">-->
+<!--<span class="help-block"></span>-->
+<!--</div>-->
+<!--<script>-->
+<!--var p = document.getElementById("userpwd1").value;-->
+<!--if(p!=''){-->
+<!--console.log(p);-->
+<!--}-->
+<!--</script>-->
+<!--</div>-->
+<!--<div class="form-group">-->
+<!--<label class="col-sm-2 control-label">班级</label>-->
+<!--<div class="col-sm-5">-->
+<!--<select class="form-control" id="classid1" name="classid">-->
+<!--</select>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="modal-footer">-->
+<!--<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>-->
+<!--<button type="submit" class="btn btn-primary" id="tch_save_btn">保存</button>-->
+<!--</div>-->
+<!--</form>-->
+<!--</div>-->
+<!--</div>-->
 <!--</div>-->
 <!--</div>-->
 
@@ -334,6 +344,7 @@
             backdrop: "static"
         });
     }
+
     // function add_info() {
     //     // var form = document.getElementById('addform');
     //
@@ -361,12 +372,12 @@
                 dataType: 'json',
                 contentType: 'application/json;charset=UTF-8',
                 data: JSON.stringify({
-                   userid: userid
+                    userid: userid
                 }),
                 success: function (data) {
                     console.log("老师" + data);
                     $("#userid1").val(data.userid);
-                    console.log("角色id"+data.roleid)
+                    console.log("角色id" + data.roleid)
                     $("#roleid1").val(data.roleid);
                     $("#username1").val(data.username);
                     $("#truename1").val(data.truename);

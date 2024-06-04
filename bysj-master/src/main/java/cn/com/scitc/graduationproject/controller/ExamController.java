@@ -32,7 +32,9 @@ public class ExamController {
     @Autowired
     CourseDao courseDao;
 
-    //试卷列表
+    /**
+     * 试卷列表
+     */
     @RequestMapping("/examList")
     private String examList(Model model, HttpServletRequest request) {
         HttpSession session = request.getSession(true);
@@ -58,24 +60,27 @@ public class ExamController {
         }
     }
 
-    //试卷
+    /**
+     * 试卷
+     */
     @RequestMapping("/paper")
     private String paper(Integer eid, Model model, HttpServletRequest request) {
         HttpSession session = request.getSession(true);
-        User lis = (User) session.getAttribute("user");  // 假设用户对象存储在会话中的 "user" 属性中
+        // 假设用户对象存储在会话中的 "user" 属性中
+        User lis = (User) session.getAttribute("user");
         if (lis != null) {
             session.setAttribute("lis", lis);
         }
-        List<Paper> Single = paperDao.finbytype(eid, 1);
-        Integer cont = Single.size();
-        request.getSession().setAttribute("single", Single);
-        System.out.println("Single" + Single);
-        model.addAttribute("single", Single);
+        List<Paper> singleList = paperDao.finbytype(eid, 1);
+        Integer cont = singleList.size();
+        request.getSession().setAttribute("single", singleList);
+        System.out.println("Single" + singleList);
+        model.addAttribute("single", singleList);
         model.addAttribute("cont", cont);
-        List<Paper> Multiple = paperDao.finbytype(eid, 2);
-        Integer cont1 = Multiple.size();
-        request.getSession().setAttribute("multiple", Multiple);
-        model.addAttribute("multiple", Multiple);
+        List<Paper> multipleList = paperDao.finbytype(eid, 2);
+        Integer cont1 = multipleList.size();
+        request.getSession().setAttribute("multiple", multipleList);
+        model.addAttribute("multiple", multipleList);
         model.addAttribute("cont1", cont1);
         Exam exam = examDao.findByEid(eid);
         model.addAttribute("exam", exam);
@@ -83,91 +88,9 @@ public class ExamController {
     }
 
 
-//    @RequestMapping("/PaperScore")
-//    private String PaperScore(HttpServletRequest request, Model model) {
-//        HttpSession session = request.getSession(true);
-//        Integer classid = (Integer) session.getAttribute("classid");
-//        Integer userid = (Integer) session.getAttribute("userid");
-//        List<Paper> slist = (List<Paper>) session.getAttribute("single");
-//        List<Paper> mlist = (List<Paper>) session.getAttribute("multiple");
-//        //成绩
-//        Integer eid = Integer.parseInt(request.getParameter("eid"));
-//        Exam byEid = examDao.findByEid(eid);
-//        Integer singlescore = byEid.getSinglecore();
-//        Integer multiplescore = byEid.getMultiplecore();
-//        String stuAnsArr[] = null;
-//        Integer score = 0;
-//
-//        // 处理单选题
-//        for (int i = 0; i < slist.size(); ++i) {
-//            Paper paper = slist.get(i);
-//            stuAnsArr = request.getParameterValues(String.valueOf(paper.getSid()));
-//            if (stuAnsArr != null) {
-//                String studentkeys = String.join("", stuAnsArr);
-//                if (studentkeys.equalsIgnoreCase(paper.getSkey())) {
-//                    score += singlescore;
-//                }
-//            }
-//        }
-//
-//        // 处理多选题
-//        for (int i = 0; i < mlist.size(); ++i) {
-//            Paper paper = mlist.get(i);
-//            stuAnsArr = request.getParameterValues(String.valueOf(paper.getSid()));
-//            if (stuAnsArr != null) {
-//                String studentkeys = String.join("", stuAnsArr);
-//                if (studentkeys.equalsIgnoreCase(paper.getSkey())) {
-//                    score += multiplescore;
-//                }
-//            }
-//        }
-//
-//        Integer zscore = (slist.size() * singlescore) + (mlist.size() * multiplescore);
-//        String pname = request.getParameter("pname");
-//        String tjtime = request.getParameter("tjtime");
-//        model.addAttribute("score", score);
-//        Studentexam studentexam = new Studentexam();
-//        studentexam.setEid(eid);
-//        studentexam.setPname(pname);
-//        studentexam.setUserid(userid);
-//        studentexam.setClassid(classid);
-//        studentexam.setZscore(zscore);
-//        studentexam.setScore(score);
-//        Timestamp ts = new Timestamp(System.currentTimeMillis());
-//        try {
-//            ts = Timestamp.valueOf(tjtime);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        studentexam.setTjtime(ts);
-//        studentexamDao.save(studentexam);
-//
-//        // 保存答卷
-//        Integer seid = studentexam.getSeid();
-//        saveStudentAnswers(slist, request, seid, userid, eid);
-//        saveStudentAnswers(mlist, request, seid, userid, eid);
-//
-//        return "student/paperScore";
-//    }
-//
-//    private void saveStudentAnswers(List<Paper> papers, HttpServletRequest request, Integer seid, Integer userid, Integer eid) {
-//        for (Paper paper : papers) {
-//            String[] stuAnsArr = request.getParameterValues(String.valueOf(paper.getSid()));
-//            if (stuAnsArr != null) {
-//                String studentkeys = String.join("", stuAnsArr);
-//                Studentsubject studentsubject = new Studentsubject();
-//                studentsubject.setSeid(seid);
-//                studentsubject.setUserid(userid);
-//                studentsubject.setEid(eid);
-//                studentsubject.setSid(paper.getSid());
-//                studentsubject.setStudentkey(studentkeys);
-//                studentsubjectDao.save(studentsubject);
-//            }
-//        }
-//    }
-
-
-    //试卷成绩
+    /**
+     * 试卷成绩
+     */
     @RequestMapping("/PaperScore")
     private String PaperScore(HttpServletRequest request, Model model) {
         HttpSession session = request.getSession(true);
@@ -176,46 +99,46 @@ public class ExamController {
         List<Paper> slist = (List<Paper>) session.getAttribute("single");
         List<Paper> mlist = (List<Paper>) session.getAttribute("multiple");
         //成绩
-        Integer eid = Integer.parseInt(request.getParameter("eid"));
-        //System.out.println(eid);
+        int eid = Integer.parseInt(request.getParameter("eid"));
         Exam byEid = examDao.findByEid(eid);
-        Integer singlescore = byEid.getSinglecore();
-        Integer multiplecore = byEid.getMultiplecore();
-        //System.out.println(singlescore);
+        int singlescore = byEid.getSinglecore();
+        int multiplecore = byEid.getMultiplecore();
         String stuAnsArr[] = null;
-        Integer score = 0;
-        for (int i = 0; i < slist.size(); ++i) {
-            Paper paper = slist.get(i);
-            stuAnsArr = request.getParameterValues(String.valueOf(paper.getSid()));//获取每道题的答案
+        int score = 0;
+        for (Paper paper : slist) {
+            //获取学生每道题的答案
+            stuAnsArr = request.getParameterValues(String.valueOf(paper.getSid()));
             // 单选判题
             if (stuAnsArr != null) {
-                String studentkeys = stuAnsArr[0]; //每道题的答案
+                //学生每道题的答案
+                String studentkeys = stuAnsArr[0];
                 if (studentkeys.equalsIgnoreCase(paper.getSkey())) {
                     score = score + singlescore;
-                } else {
                 }
             } else {
                 System.out.println("提交失败！");
             }
         }
-        for (int i = 0; i < mlist.size(); ++i) {
-            Paper paper = mlist.get(i);
-            stuAnsArr = request.getParameterValues(String.valueOf(paper.getSid()));//获取每道题的答案
+        for (Paper paper : mlist) {
+            //获取每道题的答案
+            stuAnsArr = request.getParameterValues(String.valueOf(paper.getSid()));
             // 多选判题
             if (stuAnsArr != null) {
-                String studentkeys = ""; //每道题的答案
-                for (int j = 0; j < stuAnsArr.length; j++) {//多选题拥有多个答案
-                    studentkeys += stuAnsArr[j];//组装学生答案
+                //每道题的答案
+                StringBuilder studentkeys = new StringBuilder();
+                //多选题拥有多个答案
+                for (String s : stuAnsArr) {
+                    //组装学生答案
+                    studentkeys.append(s);
                 }
-                if (studentkeys.equalsIgnoreCase(paper.getSkey())) {
+                if (studentkeys.toString().equalsIgnoreCase(paper.getSkey())) {
                     score = score + multiplecore;
-                } else {
                 }
             } else {
                 System.out.println("提交失败！");
             }
         }
-        Integer zscore = slist.size() * singlescore + mlist.size() * multiplecore;
+        int zscore = slist.size() * singlescore + mlist.size() * multiplecore;
         String pname = request.getParameter("pname");
         String tjtime = request.getParameter("tjtime");
         model.addAttribute("score", score);
@@ -231,18 +154,19 @@ public class ExamController {
             ts = Timestamp.valueOf(tjtime);
             System.out.println(ts);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("时间格式错误" + e.getMessage());
         }
         studentexam.setTjtime(ts);
         studentexamDao.save(studentexam);
         //答卷表
-        Integer seid = studentexam.getSeid();
+        int seid = studentexam.getSeid();
         // 单选答卷
-        for (int i = 0; i < slist.size(); ++i) {
-            Paper paper = slist.get(i);
-            stuAnsArr = request.getParameterValues(String.valueOf(paper.getSid()));//获取每道题的答案
+        for (Paper paper : slist) {
+            //获取每道题的答案
+            stuAnsArr = request.getParameterValues(String.valueOf(paper.getSid()));
             if (stuAnsArr != null) {
-                String studentkeys = stuAnsArr[0]; //每道题的答案
+                //每道题的答案
+                String studentkeys = stuAnsArr[0];
                 Studentsubject studentsubject = new Studentsubject();
                 studentsubject.setSeid(seid);
                 studentsubject.setUserid(userid);
@@ -253,38 +177,44 @@ public class ExamController {
             }
         }
         // 多选答卷
-        for (int i = 0; i < mlist.size(); ++i) {
-            Paper paper = mlist.get(i);
-            stuAnsArr = request.getParameterValues(String.valueOf(paper.getSid()));//获取每道题的答案
+        for (Paper paper : mlist) {
+            //获取每道题的答案
+            stuAnsArr = request.getParameterValues(String.valueOf(paper.getSid()));
             //如果是多选题，存在多个选项值，因此需要getParameterValues方法获取多个值
             if (stuAnsArr != null) {
-                String studentkeys = ""; //每道题的答案
-                for (int j = 0; j < stuAnsArr.length; j++) {//多选题拥有多个答案
-                    studentkeys += stuAnsArr[j];//组装学生答案
+                //每道题的答案
+                StringBuilder studentkeys = new StringBuilder();
+                //多选题拥有多个答案
+                for (String s : stuAnsArr) {
+                    //组装学生答案
+                    studentkeys.append(s);
                 }
                 Studentsubject studentsubject = new Studentsubject();
                 studentsubject.setSeid(seid);
                 studentsubject.setUserid(userid);
                 studentsubject.setEid(eid);
                 studentsubject.setSid(paper.getSid());
-                studentsubject.setStudentkey(studentkeys);
+                studentsubject.setStudentkey(studentkeys.toString());
                 studentsubjectDao.save(studentsubject);
             }
         }
         return "student/paperScore";
     }
 
-    //查询是否做过该试卷
+    /**
+     * 查询是否做过该试卷
+     */
     @ResponseBody
     @RequestMapping("/findOneStuExam")
     private Studentexam findOneStuExam(@RequestBody Exam exam, HttpServletRequest request) {
         HttpSession session = request.getSession(true);
         Integer userid = (Integer) session.getAttribute("userid");
-        Studentexam studentexam = studentexamDao.findByOne(userid, exam.getEid());
-        return studentexam;
+        return studentexamDao.findByOne(userid, exam.getEid());
     }
 
-    //答卷列表
+    /**
+     * 答卷列表
+     */
     @RequestMapping("/findAllStuPaper")
     private String findAllStuPaper(Model model, HttpServletRequest request) {
         HttpSession session = request.getSession(true);
@@ -294,32 +224,31 @@ public class ExamController {
         return "student/stuPaperList";
     }
 
-    //答卷
+    /**
+     * 答卷
+     */
     @RequestMapping("/stuPaper")
     private String stuPaper(Integer seid, HttpServletRequest request, Model model) {
         HttpSession session = request.getSession(true);
         Integer userid = (Integer) session.getAttribute("userid");
-        List<Studentsubject> stukeys = studentsubjectDao.findBySeid(userid, seid);
-        for (Studentsubject studentsubject : stukeys) {
+        List<Studentsubject> stuKeys = studentsubjectDao.findBySeid(userid, seid);
+        for (Studentsubject studentsubject : stuKeys) {
             Subject bySid = subjectDao.findBySid(studentsubject.getSid());
             Exam byEid = examDao.findByEid(studentsubject.getEid());
             model.addAttribute("exam", byEid);
             studentsubject.setSubject(bySid);
         }
-        model.addAttribute("stukeys", stukeys);
+        model.addAttribute("stukeys", stuKeys);
         return "student/stuPaper";
     }
 
-    //查询考试是否结束
+    /**
+     * 查询考试是否结束
+     */
     @ResponseBody
     @RequestMapping("/findBySeid")
     private Studentexam findBySeid(@RequestBody Studentexam exams) {
-        Studentexam stexam = studentexamDao.findByseid(exams.getSeid());
-        if (stexam != null) {
-            return stexam;
-        } else {
-            return null;
-        }
+        return studentexamDao.findByseid(exams.getSeid());
     }
 
     @ResponseBody

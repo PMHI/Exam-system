@@ -83,12 +83,12 @@ public class LoginController {
         Users byUsername = usersDao.findByUsername(username);
         System.out.println(byUsername);
         if (byUsername == null) {
-            if (userpwd.equals("")) {
+            if (userpwd.isEmpty()) {
                 wk = "密码或密码不能为空！";
                 request.getSession().setAttribute("wk", wk);
 
             } else {
-                if (truename.equals("")) {
+                if (truename.isEmpty()) {
                     wk = "密码或密码不能为空！";
                     request.getSession().setAttribute("wk", wk);
                 } else {

@@ -93,8 +93,8 @@ public class TeacherController {
     private String addStu(String username, String userpwd, String truename, Integer classid) {
         Users users = new Users();
         System.out.println(username);
-        Users byname = usersDao.findByUsername(username);
-        if (byname == null) {
+        Users byName = usersDao.findByUsername(username);
+        if (byName == null) {
             users.setRoleid(2);
             users.setUsername(username);
             users.setUserpwd(userpwd);
@@ -112,8 +112,7 @@ public class TeacherController {
     @ResponseBody
     @RequestMapping("/findAllClass")
     private Iterable<Pjclass> pjclassList() {
-        Iterable<Pjclass> pjclasses = classDao.findAll();
-        return pjclasses;
+        return classDao.findAll();
     }
 
     //按userid查询
@@ -141,11 +140,11 @@ public class TeacherController {
         // 接收包含stuId的字符串，并将它分割成字符串数组
         String[] stuList = ids.split(",");
         // 将字符串数组转为List<Intger> 类型
-        List<Integer> LString = new ArrayList<Integer>();
+        List<Integer> lString = new ArrayList<Integer>();
         for (String str : stuList) {
-            LString.add(new Integer(str));
+            lString.add(new Integer(str));
         }
-        List<Users> users = usersDao.findAllById(LString);
+        List<Users> users = usersDao.findAllById(lString);
         usersDao.deleteInBatch(users);
         return "redirect:/StudentList";
     }
@@ -154,8 +153,8 @@ public class TeacherController {
     @RequestMapping("/deleteAll")
     private String deleteAll(HttpServletRequest request) {
         HttpSession session = request.getSession(true);
-        Integer classid = (Integer) session.getAttribute("classid");
-        usersDao.deleteByClassid(classid);
+        Integer classID = (Integer) session.getAttribute("classid");
+        usersDao.deleteByClassid(classID);
         return "redirect:/StudentList";
     }
 
@@ -172,7 +171,9 @@ public class TeacherController {
         return "teacher/SelectExam";
     }
 
-    //批量删除考试 deleteManyExam
+    /**
+     * 批量删除考试 deleteManyExam
+     */
     @RequestMapping("/deleteManyExam")
     private String deleteManyExam(String ids) {
         // 接收包含stuId的字符串，并将它分割成字符串数组
@@ -191,7 +192,9 @@ public class TeacherController {
         return "redirect:/selectexam";
     }
 
-    //删除考试
+    /**
+     * 删除考试
+     */
     @RequestMapping("/deleteExam")
     private String deleteExam(Integer eid) {
         paperDao.deleteByEid(eid);
@@ -201,19 +204,18 @@ public class TeacherController {
         return "redirect:/selectexam";
     }
 
-    //查询一场考试信息
+    /**
+     * 查询一场考试信息
+     */
     @ResponseBody
     @RequestMapping("/findByOneExam")
     private Exam findByOneExam(@RequestBody Exam exams) {
-        Exam exam = examDao.findByEid(exams.getEid());
-        if (exam != null) {
-            return exam;
-        } else {
-            return null;
-        }
+        return examDao.findByEid(exams.getEid());
     }
 
-    //修改考试
+    /**
+     * 修改考试
+     */
     @RequestMapping("/updateExam")
     private String updateExam(Exam exam) {
         Integer eid = exam.getEid();
@@ -223,7 +225,9 @@ public class TeacherController {
         return "redirect:/selectexam";
     }
 
-    //试卷详情
+    /**
+     * 试卷详情
+     */
     @RequestMapping("/paperDetails")
     private String paperDetails(Integer eid, Model model) {
         List<Paper> tm = paperDao.finbyEid(eid);
@@ -233,7 +237,9 @@ public class TeacherController {
         return "teacher/paperDetails";
     }
 
-    //添加考试
+    /**
+     * 添加考试
+     */
     @RequestMapping("/insertexam")
     private String insertexam(String pname, Integer userid, Integer cno, Integer classid, Integer singlenumber, Integer singlecore, Integer multiplenumber, Integer multiplecore, Date examdate, Date examtime, Integer testtime, Model model) {
         Exam exam = new Exam();
@@ -252,17 +258,28 @@ public class TeacherController {
         Integer eid = exam.getEid();
         System.out.println(eid);
         //单选随机组题
-        List<Subject> singlelsit = subjectDao.finbytype(1, cno);
+        List<Subject> singleList = subjectDao.finbytype(1, cno);
         List<Subject> resultList1 = new ArrayList<Subject>();
         Random random = new Random();
-        if (singlenumber > 0) {
-            for (int i = 1; i <= singlenumber; i++) {
-                int n = random.nextInt(singlelsit.size());
-                Subject q = singlelsit.get(n);
+        setPaper(singlenumber, eid, singleList, resultList1, random);
+        System.out.println(multiplenumber);
+        //多选随机组题
+        List<Subject> multipleList = subjectDao.finbytype(2, cno);
+        System.out.println(multipleList);
+        List<Subject> resultList2 = new ArrayList<Subject>();
+        setPaper(multiplenumber, eid, multipleList, resultList2, random);
+        return "redirect:/selectexam";
+    }
+
+    private void setPaper(Integer singleNumber, Integer eid, List<Subject> singleList, List<Subject> resultList1, Random random) {
+        if (singleNumber > 0) {
+            for (int i = 1; i <= singleNumber; i++) {
+                int n = random.nextInt(singleList.size());
+                Subject q = singleList.get(n);
                 if (resultList1.contains(q)) {
                     i--;
                 } else {
-                    resultList1.add(singlelsit.get(n));
+                    resultList1.add(singleList.get(n));
                     Paper paper = new Paper();
                     paper.setEid(eid);
                     paper.setSid(q.getSid());
@@ -278,35 +295,6 @@ public class TeacherController {
                 }
             }
         }
-        System.out.println(multiplenumber);
-        //多选随机组题
-        List<Subject> multiplelsit = subjectDao.finbytype(2, cno);
-        System.out.println(multiplelsit);
-        List<Subject> resultList2 = new ArrayList<Subject>();
-        if (multiplenumber > 0) {
-            for (int i = 1; i <= multiplenumber; i++) {
-                int n1 = random.nextInt(multiplelsit.size());
-                Subject q1 = multiplelsit.get(n1);
-                if (resultList2.contains(q1)) {
-                    i--;
-                } else {
-                    resultList2.add(multiplelsit.get(n1));
-                    Paper p = new Paper();
-                    p.setEid(eid);
-                    p.setSid(q1.getSid());
-                    p.setStype(q1.getStype());
-                    p.setScontent(q1.getScontent());
-                    p.setSa(q1.getSa());
-                    p.setSb(q1.getSb());
-                    p.setSc(q1.getSc());
-                    p.setSd(q1.getSd());
-                    p.setSkey(q1.getSkey());
-                    System.out.println(p.getScontent());
-                    paperDao.save(p);
-                }
-            }
-        }
-        return "redirect:/selectexam";
     }
 
     //查询单选题
@@ -332,8 +320,7 @@ public class TeacherController {
     @ResponseBody
     @RequestMapping("findAllCourse")
     private Iterable<Course> courselist() {
-        Iterable<Course> courses = courseDao.findAll();
-        return courses;
+        return courseDao.findAll();
     }
 
     //单选添加题目
@@ -384,11 +371,11 @@ public class TeacherController {
         // 接收包含stuId的字符串，并将它分割成字符串数组
         String[] singleList = ids.split(",");
         // 将字符串数组转为List<Intger> 类型
-        List<Integer> LString = new ArrayList<Integer>();
+        List<Integer> lString = new ArrayList<Integer>();
         for (String str : singleList) {
-            LString.add(new Integer(str));
+            lString.add(new Integer(str));
         }
-        List<Subject> subjects = subjectDao.findAllById(LString);
+        List<Subject> subjects = subjectDao.findAllById(lString);
         subjectDao.deleteInBatch(subjects);
         return "redirect:/finddanxuan";
     }

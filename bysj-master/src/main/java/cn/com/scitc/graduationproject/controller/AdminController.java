@@ -50,11 +50,7 @@ public class AdminController {
     @RequestMapping("/findCourseByCno")
     private Course findExamByEid(@RequestBody Course courses) {
         Course byCno = courseDao.findByCno(courses.getCno());
-        if (byCno != null) {
-            return byCno;
-        } else {
-            return null;
-        }
+        return byCno;
     }
 
     //修改
@@ -94,12 +90,7 @@ public class AdminController {
     @ResponseBody
     @RequestMapping("/findClassByClassid")
     private Pjclass findClassByClassid(@RequestBody Pjclass pjs) {
-        Pjclass byClassid = classDao.findByClassid(pjs.getClassid());
-        if (byClassid != null) {
-            return byClassid;
-        } else {
-            return null;
-        }
+        return classDao.findByClassid(pjs.getClassid());
     }
 
     //修改
@@ -145,12 +136,7 @@ public class AdminController {
     @ResponseBody
     @RequestMapping("/TeacherEdit")
     private Users TeacherEdit(@RequestBody Users users) {
-        Users user = usersDao.findByUserid(users.getUserid());
-        if (user != null) {
-            return user;
-        } else {
-            return null;
-        }
+        return usersDao.findByUserid(users.getUserid());
     }
 
     //修改
